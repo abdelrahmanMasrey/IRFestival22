@@ -34,9 +34,10 @@ namespace IRFestival.Api.Controllers
 
         [HttpGet("Stages")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Stage>))]
-        public ActionResult GetStages()
+        public async Task<ActionResult> GetStages()
         {
-            return Ok(FestivalDataSource.Current.Stages);
+            var artists = await db.Stages.ToListAsync();
+            return Ok(artists);
         }
 
         [HttpPost("Favorite")]
