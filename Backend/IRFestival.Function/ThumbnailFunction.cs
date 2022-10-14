@@ -29,4 +29,4 @@ namespace IRFestival.Function
             input.Save(thumbnail, format);
         }
     }
-}
+} 
