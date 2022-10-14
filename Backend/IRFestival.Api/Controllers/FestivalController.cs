@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using IRFestival.Api.Data;
 using IRFestival.Api.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.ApplicationInsights;
 
 namespace IRFestival.Api.Controllers
 {
@@ -12,10 +13,14 @@ namespace IRFestival.Api.Controllers
     [ApiController]
     public class FestivalController : ControllerBase
     {
-  FestivalDbContext db;
-        public FestivalController(FestivalDbContext dbContext)
+        public FestivalDbContext db { get; set; }
+
+        public TelemetryClient Tc { get; set; }
+
+        public FestivalController(FestivalDbContext dbContext, TelemetryClient tc)
         {
             db = dbContext;
+            Tc = tc;
         }
         [HttpGet("LineUp")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Schedule))]
@@ -26,10 +31,15 @@ namespace IRFestival.Api.Controllers
 
         [HttpGet("Artists")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Artist>))]
-        public async Task<ActionResult> GetArtists()
+        public ActionResult GetArtists(bool? withRatings)
         {
-            var artists = await db.Artists.ToListAsync();
-            return Ok(artists);
+            if (withRatings.HasValue && withRatings.Value)
+                Tc.TrackEvent($"list of ar with rat");
+            else
+                Tc.TrackEvent($"list of ar without rat");
+
+           /* var artists = await db.Artists.ToListAsync();*/
+            return base.Ok(FestivalDataSource.Current.Artists);
         }
 
         [HttpGet("Stages")]

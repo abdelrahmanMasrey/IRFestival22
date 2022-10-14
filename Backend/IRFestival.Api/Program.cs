@@ -23,6 +23,7 @@ sqlServerOptionsAction:sqlOptions =>
        errorNumbersToAdd: null
        );
 }));
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 
 var app = builder.Build();
 

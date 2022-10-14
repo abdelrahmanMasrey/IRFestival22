@@ -25,7 +25,17 @@ namespace IRFestival.Api.Controllers
 
             _cosmosCLient = new CosmosClient(config.GetConnectionString("CosmosConnection"));
             _websiteArticlesContainer = _cosmosCLient.GetContainer("IRFestivalArticles", "WebsiteArticles");
-            
+
+            /*     var task = Task.Run(async () =>
+                 {
+                     _cosmosCLient = new CosmosClient(config.GetConnectionString("CosmosConnection"));
+                     Database database = await _cosmosCLient.CreateDatabaseIfNotExistsAsync("IRFestivalArticles");
+
+
+
+                     _websiteArticlesContainer = await database.CreateContainerIfNotExistsAsync("WebsiteArticles", "/tag");
+                 });
+                 task.Wait();*/
         }
 
         [HttpPost]
@@ -38,6 +48,10 @@ namespace IRFestival.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUnpublishedArticles()
         {
+/*            var database = await _cosmosCLient.CreateDatabaseIfNotExistsAsync("IRFestivalArticles");
+            var containerResponse = await database.Database.CreateContainerIfNotExistsAsync("WebsiteArticles", "/tag");
+            var container = containerResponse.Container;*/
+
             var result = new List<Article>();
             var query = _websiteArticlesContainer.GetItemLinqQueryable<Article>()
                 .Where(p => p.Status == nameof(Status.Unpublished))
@@ -50,6 +64,7 @@ namespace IRFestival.Api.Controllers
             }
             return Ok(result);
         }
+     
 
     }
 }
