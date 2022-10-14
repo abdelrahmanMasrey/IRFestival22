@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-      paths:
+    paths:
       - 'Backend/IRFestival.Function/**'
   workflow_dispatch:
 
