@@ -55,7 +55,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'IRFestivalAPIABD'
+          app-name: 'IRFestivalApi20221017113854'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F4E119DEE9CA40E19469555752C8D3FF }}
           package: .
