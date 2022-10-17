@@ -1,10 +1,11 @@
+using Azure.Identity;
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using IRFestival.Api;
 using IRFestival.Api.Common;
 using IRFestival.Api.Options;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +28,33 @@ sqlServerOptionsAction:sqlOptions =>
        errorNumbersToAdd: null
        );
 }));
+
+//keyvault
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://irfestivalkeyvaultabd.vault.azure.net/"),
+        new DefaultAzureCredential(new DefaultAzureCredentialOptions()));
+}
+
+//appconfig
+//builder.Configuration.AddAzureAppConfiguration(builder.Configuration.GetConnectionString("AppConfigConnection"));
+
+//activate when sub is enabled
+/*builder.Configuration.AddAzureAppConfiguration( option=> 
+option.Connect(builder.Configuration.GetConnectionString("AppConfigConnection")).UseFeatureFlags());
+builder.Services.AddFeatureManagement();*/
+
+
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 //storage
 var storageSharedKeyCredential = new StorageSharedKeyCredential(
     builder.Configuration.GetValue<string>("Storage:AccountName"),
     builder.Configuration.GetValue<string>("Storage:AccountKey"));
 string blobUri = "https://" + storageSharedKeyCredential.AccountName + ".blob.core.windows.net";
+
+
+
 
 builder.Services.AddSingleton(p=> new BlobServiceClient(new Uri(blobUri),storageSharedKeyCredential));
 builder.Services.AddSingleton(p => storageSharedKeyCredential);
