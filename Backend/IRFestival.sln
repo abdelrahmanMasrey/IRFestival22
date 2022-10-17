@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRFestival.Function", "IRFe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRFestival.MailerConsole", "IRFestival.MailerConsole\IRFestival.MailerConsole.csproj", "{901C7337-35C3-4D44-9F92-BDBCC44A12AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CognitiveFunction", "CognitiveFunction\CognitiveFunction.csproj", "{C9DD142B-B2AF-449E-823E-BBE9514D3AA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{901C7337-35C3-4D44-9F92-BDBCC44A12AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{901C7337-35C3-4D44-9F92-BDBCC44A12AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{901C7337-35C3-4D44-9F92-BDBCC44A12AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9DD142B-B2AF-449E-823E-BBE9514D3AA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9DD142B-B2AF-449E-823E-BBE9514D3AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9DD142B-B2AF-449E-823E-BBE9514D3AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9DD142B-B2AF-449E-823E-BBE9514D3AA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
